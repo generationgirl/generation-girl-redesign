@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import $ from 'jquery';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+import './stylesheets/custom.css';
+
+
+import Nav from './components/Nav';
+import Header from './components/Header';
+import ClubCarousel from './components/ClubCarousel';
+import Background from './components/Background';
+import About from './components/About';
+import Members from './components/Members'
+import Sponsors from './components/Sponsors';
+import ContactUs from './components/ContactUs';
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faIgloo } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faIgloo)
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Nav></Nav>
+        <Header></Header>
+        <About></About>
+        <ClubCarousel/>
+        <Members/>
+        <Sponsors></Sponsors>
+        <ContactUs></ContactUs>
+        <Background/>
       </div>
     );
   }
