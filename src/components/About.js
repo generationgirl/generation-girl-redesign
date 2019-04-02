@@ -13,7 +13,7 @@ function About(props) {
           <h3 className = "text-right"><span><img src={require("../assets/genglogoalt.png")} alt=""></img></span><i>  #gengup</i></h3>
         </div>
         <div className = "col-lg-4 text-center">
-          <img className = "aboutusimg"></img>
+          <img width="300px" src = {require("../assets/clover.png")}></img>
         </div>
       </div>
     </div>
