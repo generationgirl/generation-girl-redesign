@@ -19,6 +19,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faIgloo } from '@fortawesome/free-solid-svg-icons'
 import Instagram from './components/Instagram';
+import Footer from './components/Footer';
+import Medium from './components/Medium';
 
 library.add(faIgloo)
 
@@ -33,8 +35,9 @@ class App extends Component {
         <Sponsors></Sponsors>
         <ClubCarousel/>
         <Instagram></Instagram>
+        <Medium></Medium>
         <ContactUs></ContactUs>
-        
+        <Footer></Footer>
       </div>
     );
   }

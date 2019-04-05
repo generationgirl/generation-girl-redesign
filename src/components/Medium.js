@@ -1,32 +1,94 @@
 import React from 'react'
-import axios from 'axios'
+import { getPosts as getPostsAPI } from '../Utils/api';
+
 class Medium extends React.Component {
   state = {
-    posts: []
+    posts: [],
+    error: null,
+    isLoading: false
   }
-  componentDidMount() {
-    this.fetchPosts().then(this.setPosts)
+  
+  async componentDidMount() {
+    this.getPosts()
   }
-  fetchPosts = () => axios.get(`https://cors.now.sh/https://us-central1-aaronklaser-1.cloudfunctions.net/medium?username=@aaron.klaser`)
-  setPosts = response => {
+
+  async getPosts() {
     this.setState({
-      posts: response
+      error: null,
+      isLoading: true
     })
+
+    try {
+      const posts = await getPostsAPI('generationgirl.id');
+      console.log(posts);
+
+      this.setState({
+        posts,
+        isLoading: false
+      });
+
+    } catch(e) {
+      this.setState({
+        error: 'an error occured',
+        isLoading: false
+      });
+    }
   }
+
   render() {
-    return (
-      <div>
-          Medium is where I ramble and rant and tell stories. I orginally was going to use it as a coding blog, I don't like having to use Gist for all my code snippets. So I created this site.
-          <br /><br />
-          <a className="button is-inverted is-outlined" href="https://medium.com/@aaron.klaser" target="_blank">
-            View My Medium
-            <span className="icon" style={{ marginLeft: 5 }}>
-              <i className="fab fa-lg fa-medium"></i>
-            </span>
-          </a>
-          <pre>{JSON.stringify(this.state.posts, null, 2)}</pre>
+      const { isLoading, error, posts } = this.state;
+
+      if (isLoading) {
+          return <h3>Loading</h3>
+      } else if (error) {
+          return <h3>{error}</h3>
+      } else {
+        return (
+          <div id = "publications">
+            <div class = "container">
+			        <h2 class ="blue"> <span class = "fab fa-medium"></span> <b>&nbsp;Publications</b> </h2>
+              <br/>
+              <div class="card">
+                {
+                      posts.map((post) => <Card
+                      key = {post.id}
+                      post = {post}/>)
+                }
+              </div>
+            </div>
       </div>
     )
+              }
   }
 }
+
+
+function Card(props) {
+  const { title, subtitle, image, url } = props.post;
+
+  return (
+    <div class = "row mediumcard">
+    <div class = "col-lg-6"><img class="img-fluid" src={image} alt="Carousel 1"/></div>
+    <div class = "col-lg-6 mediumpost">
+      <h4 class = "posttitle blue">{title}</h4>
+
+                <p class = "postdesc">
+                  {subtitle}
+                </p>
+
+                <div class = "text-right postbutton">
+                    <a href={url}>
+                      <button class = "rectcirclealt"><b>Read Article</b> &nbsp;<span><i class = "fas fa-arrow-right"></i></span></button>
+                  </a>
+                </div>
+    </div>
+
+  </div>
+
+    
+  )
+    
+}
+
+
 export default Medium
